@@ -29,7 +29,7 @@ def getValue():
         rgb = RGBimage.getRGB(image_path)
         print(rgb)
 
-        return "File uploaded successfully!"
+        return response()
     else:
         return "No file uploaded"
 @app.route('/response')
