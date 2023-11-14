@@ -29,6 +29,9 @@ def get_data_set(image_path):
     
     mean_rgb = image_rgb.mean(axis=(0, 1))
     std_rgb = image_rgb.std(axis=(0, 1))
+    var_rgb = image_rgb.var(axis=(0, 1))
+    min_rgb = np.min(image_rgb, axis=(0, 1))
+    max_rgb = np.max(image_rgb, axis=(0, 1))
     
     mean_array.append(mean_rgb)
     data_dict['Mean R'].append(mean_rgb[0])
@@ -40,13 +43,22 @@ def get_data_set(image_path):
     data_dict['Std R'].append(std_rgb[0])
     data_dict['Std G'].append(std_rgb[1])
     data_dict['Std B'].append(std_rgb[2])
-
-def calculate_mean(image):
-    # Calculate the mean values of R, G, and B channels for the image
-    mean_r = np.mean(image[:, :, 0])
-    mean_g = np.mean(image[:, :, 1])
-    mean_b = np.mean(image[:, :, 2])
-    return mean_r, mean_g, mean_b
+    
+    # Append variances to the dictionary
+    data_dict['Var R'].append(var_rgb[0])
+    data_dict['Var G'].append(var_rgb[1])
+    data_dict['Var B'].append(var_rgb[2])
+    
+    # Append minimum values to the dictionary
+    data_dict['Min R'].append(min_rgb[0])
+    data_dict['Min G'].append(min_rgb[1])
+    data_dict['Min B'].append(min_rgb[2])
+    
+    # Append maximum values to the dictionary
+    data_dict['Max R'].append(max_rgb[0])
+    data_dict['Max G'].append(max_rgb[1])
+    data_dict['Max B'].append(max_rgb[2])
+    
 
 def preprocess_image(image, desired_width=50, desired_height=50):
     # Resize the image to a fixed size
@@ -100,3 +112,4 @@ def get_total_rgb():
 
 def get_dict():
     return data_dict
+
